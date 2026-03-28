@@ -1,4 +1,13 @@
+const http = require('http')
 const mineflayer = require('mineflayer')
+
+const port = process.env.PORT || 10000
+http.createServer((req, res) => {
+  res.write("Bot IronFarm is alive!")
+  res.end()
+}).listen(port, () => {
+  console.log(`Serwer HTTP nasluchuje na porcie ${port}`)
+})
 
 const options = {
   host: 'klakier-rudy-kot.csrv.gg',
