@@ -1,7 +1,6 @@
 const http = require('http')
 const mineflayer = require('mineflayer')
 
-
 http.createServer((req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/plain' })
   res.end('Bot is running!')
@@ -9,10 +8,10 @@ http.createServer((req, res) => {
 
 
 const options = {
-  host: 'klakier-rudy-kot.csrv.gg'
-  port: 29548
-  username: 'IronFarmBot'
-  version: '1.21.11' 
+  host: 'klakier-rudy-kot.csrv.gg',
+  port: 29548,
+  username: 'IronFarmBot',
+  version: '1.21.11'
 }
 
 const bot = mineflayer.createBot(options)
