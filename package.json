@@ -4,7 +4,7 @@
   "description": "Bot do Minecrafta na Render",
   "main": "IronFram.js",
   "scripts": {
-    "start": "IronFram.js"
+    "start": "node IronFram.js"
   },
   "dependencies": {
     "mineflayer": "^4.20.0"
