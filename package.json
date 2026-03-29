@@ -2,9 +2,9 @@
   "name": "iron-farm-bot",
   "version": "1.0.0",
   "description": "Bot do Minecrafta na Render",
-  "main": "IronFram.js",
+  "main": "IronFarm.js",
   "scripts": {
-    "start": "node IronFram.js"
+    "start": "node IronFarm.js"
   },
   "dependencies": {
     "mineflayer": "^4.20.0"
