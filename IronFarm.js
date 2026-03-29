@@ -21,6 +21,8 @@ bot.on('spawn', () => {
   bot.chat('hi!')
   bot.setQuickBarSlot(8)
   console.log('Bot is runing')
+  bot.chat('/register 123456 123456')
+  //bot.chat('/login 123456')
 })
 
 
