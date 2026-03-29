@@ -24,7 +24,6 @@ bot.on('spawn', () => {
   bot.setQuickBarSlot(8)
   console.log('Bot is runing')
   bot.chat('/login 123456')
-  bot.chat('hi!')
 })
 
 
@@ -47,6 +46,14 @@ bot.on('messagestr', (message) => {
     }else{
       bot.chat("I'm not hungry(level: "+hunger+")")
     } 
+  }
+
+  else if(message.includes('successfully logged in')){
+    bot.chat('hi!')
+  }
+
+  else if(message.includes('joined')){
+    bot.chat('zrobielm bota, nie odkopujcie - jest na spawnie - Piotrek')
   }
 })
 
