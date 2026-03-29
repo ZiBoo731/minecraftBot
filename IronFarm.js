@@ -18,11 +18,10 @@ const bot = mineflayer.createBot(options)
 
 
 bot.on('spawn', () => {
-  bot.chat('hi!')
   bot.setQuickBarSlot(8)
   console.log('Bot is runing')
-  bot.chat('/register 123456 123456')
-  //bot.chat('/login 123456')
+  bot.chat('/login 123456')
+  bot.chat('hi!')
 })
 
 
@@ -38,6 +37,7 @@ bot.on('messagestr', (message) => {
   }
 
   else if(message.includes('eat')){
+    const hunger = bot.food
     if(hunger<20){
       bot.chat("I'm hungry (level: "+hunger+"), I'm eating")
       bot.consume()
