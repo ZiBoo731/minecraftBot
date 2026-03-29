@@ -9,10 +9,9 @@ http.createServer((req, res) => {
 
 
 const options = {
-  host: 'klakier-rudy-kot.csrv.gg',
-  port: 29548,
-  username: '_fylek_pl',
-  auth: 'microsoft',
+  host: 'klakier-rudy-kot.csrv.gg'
+  port: 29548
+  username: 'IronFarmBot'
   version: '1.21.11' 
 }
 
@@ -30,7 +29,7 @@ bot.on('messagestr', (message) => {
 
   if(message.includes('leave')){
         bot.quit()
-        process.exit();
+        process.exit()
   }
 
   else if(message.includes('slot')){
