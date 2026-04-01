@@ -5,12 +5,17 @@ const axios = require('axios')
 
 async function notifyCsrv() {
   try {
-    await axios.get('https://csrv.gg')
-    console.log('Pomyślnie nawiązano połączenie z csrv.gg')
+    await axios.get('https://csrv.gg', {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+      }
+    });
+    console.log('Bot zapukał do csrv.gg z IP Rendera');
   } catch (error) {
-    console.error('Nie udało się otworzyć csrv.gg:', error.message)
+    console.error('Błąd:', error.message);
   }
 }
+
 http.createServer((req, res) => {
   res.writeHead(200)
   res.end('Bot is running')
