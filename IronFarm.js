@@ -29,16 +29,16 @@ bot.on('spawn', () => {
 
 bot.on('messagestr', (message) => {
 
-  if(message.includes('leave')){
+  if(message.includes('leave') && !message.includes(bot.username)){
         bot.quit()
         process.exit()
   }
 
-  else if(message.includes('slot')){
+  else if(message.includes('slot') && !message.includes(bot.username)){
     bot.chat(`hand is at : ${bot.quickBarSlot} place`)
   }
 
-  else if(message.includes('eat')){
+  else if(message.includes('eat') && !message.includes(bot.username)){
     const hunger = bot.food
     if(hunger<20){
       bot.chat("I'm hungry (level: "+hunger+"), I'm eating")
@@ -48,12 +48,109 @@ bot.on('messagestr', (message) => {
     } 
   }
 
-  else if(message.includes('successfully logged in')){
+  else if(message.includes('successfully logged in') && !message.includes(bot.username)){
     bot.chat('hi!')
   }
 
-  else if(message.includes('joined')){
+  else if((message.includes('joined') && !message.includes(bot.username))){
     bot.chat('zrobielm bota, nie odkopujcie - jest na spawnie - Piotrek')
+    bot.chat('napisz na czacie bot help')
+  }
+})
+
+bot.on('chat', async  (username, message) => {
+  if(username === bot.username) return
+
+  const messageParts = message.split(' ')
+  if(messageParts[0] === 'wyrzuc' && messageParts.length == 3){
+    const dropItemName = messageParts[1]
+    const dropItemCount = parseInt(messageParts[2])
+
+    const dropItem = bot.inventory.items().find(i => i.name === dropItemName)
+
+    if(dropItem){
+      try{
+        await bot.toss(dropItem.type, null, dropItemCount)
+        bot.chat(`Wyrzuciłem ${dropItemCount}x ${dropItemName}`)
+      } catch(err){
+        bot.chat(`Nie udało mi się wyrzucić ${dropItemName}: ${err.message}`)
+      }
+    }else{
+      bot.chat(`Nie mam przy sobie ${dropItemName}`)
+    }
+  }
+
+
+  else if(message === 'wyrzuc'){
+    if(!lastReceivedItem){
+      bot.chat('Jeszcze nic nie podniosłem.')
+      return
+    }
+
+    const itemInInventory = bot.inventory.items().find(i => i.displayName === lastReceivedItem)
+
+    if(itemInInventory){
+      try{
+        await bot.tossStack(itemInInventory)
+        bot.chat(`Wyrzuciłem ostatni przedmiot: ${itemInInventory.name}`)
+        lastReceivedItem = null
+      } catch (err){
+        bot.chat('nie udalo mi sie wyrzucic')
+      }
+    }else{
+      bot.chat('Nie mam juz tego w eq')
+    }
+  }
+
+
+  else if(message === 'bot tp'){
+    bot.chat(`/tpa ${username}`)
+  }
+
+  else if (message === 'show inventory') {
+    const eqitems = bot.inventory.items()
+    bot.chat('Moje przedmioty:')
+    eqitems.forEach(item => {
+      bot.chat(`- ${item.displayName}: ${item.count}`)
+    })
+  }
+
+  else if (message === 'wyrzuc wszystko') {
+    const items = bot.inventory.items()
+    for (const item of items) {
+        await bot.tossStack(item)
+    }
+  }
+
+  else if (['bot help', 'bothelp', 'helpbot', 'help bot'].includes(message.toLowerCase())){
+    bot.chat('napisz na chacie:')
+    bot.chat('')
+    bot.chat('leave - zeby bot wyszedl')
+    bot.chat('wyrzuc <nazwa bloku po angielsku np.(cobblestone, diamond_sword)> <ilosc> - bot wyrzuci item')
+    bot.chat('wyrzuc - wyrzuci ostatnia rzecz ktora podniosl')
+    bot.chat('bot tp')
+    bot.chat('show inventory - pokazuje eq bota')
+    bot.chat('wyrzuc wszystko - wyrzuca cale z eq')
+  }
+})
+
+let lastReceivedItem = null
+bot.on('playerCollect', (collector, itemEntity) => {
+    console.log(`collector: ${collector.username}, itemEntity: ${itemEntity.type}`)
+  if(collector.username === bot.username){
+    const collectedItem = itemEntity.getDroppedItem().displayName
+    
+    if(collectedItem){
+      lastReceivedItem = collectedItem
+    }
+  }
+})
+
+bot.on('physicsTick', () => {
+  const playerEntity = bot.nearestEntity(entity => entity.type === 'player')
+  if (playerEntity) {
+    const position = playerEntity.position.offset(0, playerEntity.height, 0)
+    bot.lookAt(position)
   }
 })
 
