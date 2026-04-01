@@ -1,6 +1,21 @@
 const http = require('http')
 const mineflayer = require('mineflayer')
 const port = process.env.PORT || 10000
+const axios = require('axios')
+
+async function notifyCsrv() {
+  try {
+    await axios.get('https://csrv.gg');
+    console.log('Pomyślnie nawiązano połączenie z csrv.gg');
+  } catch (error) {
+    console.error('Nie udało się otworzyć csrv.gg:', error.message);
+  }
+}
+
+// Wywołaj funkcję, gdy bot się uruchomi
+bot.once('spawn', () => {
+  notifyCsrv();
+});
 
 http.createServer((req, res) => {
   res.writeHead(200)
