@@ -165,4 +165,7 @@ bot.on('physicsTick', () => {
 
 
 bot.on('error', (err) => console.log('Błąd:', err))
-bot.on('kicked', notifyCsrv())//(reason) => console.log('Wyrzucono bota:', reason))
+bot.on('kicked', (reason) => {
+  console.log('Wyrzucono bota:', reason))
+  notifyCsrv()
+}
