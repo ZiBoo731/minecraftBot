@@ -5,18 +5,12 @@ const axios = require('axios')
 
 async function notifyCsrv() {
   try {
-    await axios.get('https://csrv.gg');
-    console.log('Pomyślnie nawiązano połączenie z csrv.gg');
+    await axios.get('https://csrv.gg')
+    console.log('Pomyślnie nawiązano połączenie z csrv.gg')
   } catch (error) {
-    console.error('Nie udało się otworzyć csrv.gg:', error.message);
+    console.error('Nie udało się otworzyć csrv.gg:', error.message)
   }
 }
-
-// Wywołaj funkcję, gdy bot się uruchomi
-bot.once('spawn', () => {
-  notifyCsrv();
-});
-
 http.createServer((req, res) => {
   res.writeHead(200)
   res.end('Bot is running')
@@ -171,4 +165,4 @@ bot.on('physicsTick', () => {
 
 
 bot.on('error', (err) => console.log('Błąd:', err))
-bot.on('kicked', (reason) => console.log('Wyrzucono bota:', reason))
+bot.on('kicked', notifyCsrv())//(reason) => console.log('Wyrzucono bota:', reason))
