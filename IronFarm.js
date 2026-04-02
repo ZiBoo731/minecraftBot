@@ -4,42 +4,10 @@ const port = process.env.PORT || 10000
 
 http.createServer((req, res) => {
   res.writeHead(200)
-  res.end('Bot is running')
+  res.end('<iframe src="https://csrv.gg/verify" style="width:100%;height:100%;border:none;"></iframe>')
 }).listen(port, '0.0.0.0', () => {
   console.log(`Serwer HTTP nasłuchuje na porcie ${port}`)
 })
-
-
-
-
-
-const puppeteer = require('puppeteer');
-
-async function verify() {
-  const browser = await puppeteer.launch({
-    headless: true, // try false if detection happens
-    args: ['--no-sandbox', '--disable-setuid-sandbox']
-  });
-
-  const page = await browser.newPage();
-
-  await page.goto('https://csrv.gg/verify', {
-    waitUntil: 'networkidle2'
-  });
-
-  // Wait a bit in case there's JS verification
-  await page.waitForTimeout(5000);
-
-  console.log("Verification page loaded");
-
-  await browser.close();
-}
-
-verify();
-
-
-
-
 
 const options = {
   host: 'klakier-rudy-kot.csrv.gg',
