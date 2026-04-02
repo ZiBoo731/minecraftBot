@@ -5,7 +5,7 @@ const axios = require('axios')
 
 async function notifyCsrv() {
   try {
-    await axios.get('https://csrv.gg', {
+    await axios.get('https://csrv.gg/verify', {
       headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
       }
@@ -18,17 +18,7 @@ async function notifyCsrv() {
 
 http.createServer((req, res) => {
   res.writeHead(200)
-  res.end(
-    `fetch('http://csrv.gg', { headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/)
-    .then (res => res.json())
-    .then (data => console.log(data))
-    .catch (err => console.error('Błąd:', err))
-    )
-    
-    
-    `
-  
-  )
+  res.end('Bot is running')
 }).listen(port, '0.0.0.0', () => {
   console.log(`Serwer HTTP nasłuchuje na porcie ${port}`)
 })
@@ -183,4 +173,8 @@ bot.on('error', (err) => console.log('Błąd:', err))
 bot.on('kicked', (reason) => {
   console.log('Wyrzucono bota:', reason)
   notifyCsrv()
+  fetch('https://csrv.gg/verify')
+    .then (res => res.json())
+    .then (data => console.log(data))
+    .catch (err => console.error('Error:', err))
 })
