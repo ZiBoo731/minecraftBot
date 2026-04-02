@@ -4,7 +4,7 @@ const port = process.env.PORT || 10000
 
 http.createServer((req, res) => {
   res.writeHead(200)
-  res.end('<iframe src="https://csrv.gg/verify" style="width:100%;height:100%;border:none;"></iframe>')
+  res.end('bot is running')//'<iframe src="https://csrv.gg/verify" style="width:100%;height:100%;border:none;"></iframe>')
 }).listen(port, '0.0.0.0', () => {
   console.log(`Serwer HTTP nasłuchuje na porcie ${port}`)
 })
