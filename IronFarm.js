@@ -2,6 +2,21 @@ const http = require('http')
 const mineflayer = require('mineflayer')
 const port = process.env.PORT || 10000
 
+const puppeteer = require('puppeteer');
+
+(async () => {
+  const browser = await puppeteer.launch({
+    args: ['--no-sandbox']
+  });
+
+  const page = await browser.newPage();
+  await page.goto('https://csrv.gg');
+
+  // Try clicking verify button
+  await page.click('button'); // selector may differ
+
+})();
+
 http.createServer((req, res) => {
   res.writeHead(200)
   res.end('bot is running')//'<iframe src="https://csrv.gg/verify" style="width:100%;height:100%;border:none;"></iframe>')
