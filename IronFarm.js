@@ -18,7 +18,17 @@ async function notifyCsrv() {
 
 http.createServer((req, res) => {
   res.writeHead(200)
-  res.end('bot is runing')//`<iframe src="https://csrv.gg" style="width:100%; height:100%; border:none;"></iframe>`)
+  res.end(
+    `fetch('http://csrv.gg', { headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/)
+    .then (res => res.json())
+    .then (data => console.log(data))
+    .catch (err => console.error('Błąd:', err))
+    )
+    
+    
+    `
+  
+  )
 }).listen(port, '0.0.0.0', () => {
   console.log(`Serwer HTTP nasłuchuje na porcie ${port}`)
 })
