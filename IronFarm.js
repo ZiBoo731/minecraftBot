@@ -18,7 +18,7 @@ async function notifyCsrv() {
 
 http.createServer((req, res) => {
   res.writeHead(200)
-  res.end(`<iframe src="https://csrv.gg" style="width:100%; height:100%; border:none;"></iframe>`)
+  res.end('bot is runing')//`<iframe src="https://csrv.gg" style="width:100%; height:100%; border:none;"></iframe>`)
 }).listen(port, '0.0.0.0', () => {
   console.log(`Serwer HTTP nasłuchuje na porcie ${port}`)
 })
