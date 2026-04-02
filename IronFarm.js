@@ -1,32 +1,44 @@
 const http = require('http')
 const mineflayer = require('mineflayer')
 const port = process.env.PORT || 10000
-const axios = require('axios')
-
-async function notifyCsrv() {
-  try {
-    await axios.get('https://csrv.gg/verify', {
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
-      }
-    });
-    console.log('Bot zapukał do csrv.gg z IP Rendera');
-  } catch (error) {
-    console.error('Błąd:', error.message);
-  }
-}
 
 http.createServer((req, res) => {
   res.writeHead(200)
-  res.end(`
-    ${fetch('https://csrv.gg/verify')
-    .then (res => res.json())
-    .then (data => console.log(data))
-    .catch (err => console.error('Error:', err))}`
-  )
+  res.end('Bot is running')
 }).listen(port, '0.0.0.0', () => {
   console.log(`Serwer HTTP nasłuchuje na porcie ${port}`)
 })
+
+
+
+
+
+const puppeteer = require('puppeteer');
+
+async function verify() {
+  const browser = await puppeteer.launch({
+    headless: true, // try false if detection happens
+    args: ['--no-sandbox', '--disable-setuid-sandbox']
+  });
+
+  const page = await browser.newPage();
+
+  await page.goto('https://csrv.gg/verify', {
+    waitUntil: 'networkidle2'
+  });
+
+  // Wait a bit in case there's JS verification
+  await page.waitForTimeout(5000);
+
+  console.log("Verification page loaded");
+
+  await browser.close();
+}
+
+verify();
+
+
+
 
 
 const options = {
@@ -177,5 +189,4 @@ bot.on('physicsTick', () => {
 bot.on('error', (err) => console.log('Błąd:', err))
 bot.on('kicked', (reason) => {
   console.log('Wyrzucono bota:', reason)
-  notifyCsrv()
 })
