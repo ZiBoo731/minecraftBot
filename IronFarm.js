@@ -18,11 +18,11 @@ async function notifyCsrv() {
 
 http.createServer((req, res) => {
   res.writeHead(200)
-  res.end(
-    fetch('https://csrv.gg/verify')
+  res.end(`
+    ${fetch('https://csrv.gg/verify')
     .then (res => res.json())
     .then (data => console.log(data))
-    .catch (err => console.error('Error:', err))
+    .catch (err => console.error('Error:', err))}`
   )
 }).listen(port, '0.0.0.0', () => {
   console.log(`Serwer HTTP nasłuchuje na porcie ${port}`)
